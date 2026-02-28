@@ -11,7 +11,7 @@ export { renderers } from '../renderers.mjs';
 
 const $$HeroSection = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${maybeRenderHead()}<section class="hero min-h-screen flex flex-col items-center justify-center px-6 py-12 text-center relative overflow-hidden" data-astro-cid-nlow4r3u> <!-- Efecto de fondo decorativo --> <div class="absolute inset-0 opacity-10" data-astro-cid-nlow4r3u> <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-victoria-gold rounded-full filter blur-3xl" data-astro-cid-nlow4r3u></div> <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-victoria-gold rounded-full filter blur-3xl" data-astro-cid-nlow4r3u></div> </div> <!-- Contenido principal --> <div class="relative z-10 max-w-4xl mx-auto space-y-8 animate-fadeInUp" data-astro-cid-nlow4r3u> <!-- Logo placeholder (usuario agregará después) --> <div class="mb-8" data-astro-cid-nlow4r3u> <h1 class="font-display text-victoria-gold text-2xl md:text-3xl tracking-wider mb-2" data-astro-cid-nlow4r3u>
-The Victory Church
+The Victory 70-12 Miami
 </h1> </div> <!-- Título principal --> <h2 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-victoria-gold text-shadow-gold" data-astro-cid-nlow4r3u>
 Bienvenido a Casa
 </h2> <!-- Subtítulo --> <p class="text-xl md:text-2xl lg:text-3xl text-white/90 max-w-2xl mx-auto" data-astro-cid-nlow4r3u>

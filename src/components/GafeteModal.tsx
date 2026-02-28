@@ -69,7 +69,7 @@ export default function GafeteModal({ asistente, isOpen, onClose }: GafeteModalP
           <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
             <img
               src="/icons/icon-512.png"
-              alt="The Victory Church"
+              alt="The Victory 70-12 Miami"
               className="w-96 h-96 object-contain"
             />
           </div>
@@ -79,12 +79,12 @@ export default function GafeteModal({ asistente, isOpen, onClose }: GafeteModalP
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-gold transform rotate-45"></div>
           </div>
 
-          {/* Contenido del gafete */}
+          {/* Contenido de la credencial */}
           <div className="relative z-10 text-center space-y-8">
             {/* Logo/Nombre de la iglesia */}
             <div className="mb-4">
               <h2 className="font-display text-3xl md:text-4xl text-gold-gradient font-black tracking-wider">
-                The Victory Church
+                The Victory 70-12 Miami
               </h2>
               <div className="flex items-center justify-center gap-3 mt-3">
                 <div className="h-px w-20 bg-gradient-to-r from-transparent to-gold-main"></div>
@@ -93,11 +93,11 @@ export default function GafeteModal({ asistente, isOpen, onClose }: GafeteModalP
               </div>
             </div>
 
-            {/* Foto circular - extra grande para modal */}
+            {/* Foto cuadrada con bordes redondeados - extra grande para modal */}
             {asistente.foto_url && (
               <div className="flex justify-center my-8">
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-full animate-glow-pulse"
+                  <div className="absolute inset-0 rounded-3xl animate-glow-pulse"
                     style={{
                       boxShadow: '0 0 40px rgba(212, 175, 55, 0.7), 0 0 80px rgba(212, 175, 55, 0.5)'
                     }}
@@ -105,11 +105,7 @@ export default function GafeteModal({ asistente, isOpen, onClose }: GafeteModalP
                   <img
                     src={asistente.foto_url}
                     alt={asistente.nombre}
-                    className="relative w-72 h-72 rounded-full object-cover shadow-2xl"
-                    style={{
-                      border: '8px solid',
-                      borderImage: 'linear-gradient(135deg, #C9A961, #F4E0A6, #D4AF37, #F4E0A6, #C9A961) 1'
-                    }}
+                    className="relative w-80 h-80 md:w-96 md:h-96 rounded-3xl object-cover shadow-2xl border-2 border-gold-main"
                   />
                 </div>
               </div>
@@ -145,7 +141,7 @@ export default function GafeteModal({ asistente, isOpen, onClose }: GafeteModalP
 
         {/* Instrucción para cerrar */}
         <p className="text-center mt-4 text-white/60 font-body text-sm">
-          Presiona ESC o haz clic fuera del gafete para cerrar
+          Presiona ESC o haz clic fuera de la credencial para cerrar
         </p>
       </div>
     </div>

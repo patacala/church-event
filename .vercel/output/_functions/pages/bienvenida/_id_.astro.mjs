@@ -14,8 +14,8 @@ function GafeteDigital({ asistente }) {
     setIsSharing(true);
     try {
       const shareData = {
-        title: "Mi Gafete - The Victory Church",
-        text: `¡Ya estoy registrado en el evento de The Victory Church! Mira mi gafete digital.`,
+        title: "Mi Gafete - The Victory 70-12 Miami",
+        text: `¡Ya estoy aqui en la celebracion de 7º aniversario de The Victory 70-12 Miami! Mira mi gafete digital.`,
         url: window.location.href
       };
       if (gafeteRef.current && navigator.canShare) {

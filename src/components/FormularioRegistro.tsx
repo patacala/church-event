@@ -62,7 +62,7 @@ export default function FormularioRegistro() {
     }
 
     if (!selectedFile) {
-      setError('Por favor toma una foto para tu gafete');
+      setError('Por favor toma una foto para tu credencial');
       return;
     }
 
@@ -83,7 +83,7 @@ export default function FormularioRegistro() {
         foto_url: fotoUrl,
       });
 
-      // 4. Redirigir a página de gafete
+      // 4. Redirigir a página de credencial
       window.location.href = `/bienvenida/${asistenteId}`;
     } catch (err) {
       console.error('Error al registrar:', err);
@@ -164,7 +164,7 @@ export default function FormularioRegistro() {
             {/* Foto */}
             <div>
               <label htmlFor="foto" className="block text-sm font-heading font-semibold text-gold-light mb-2">
-                Foto para tu Gafete *
+                Foto para tu Credencial *
               </label>
 
               {/* Preview de la foto */}
@@ -248,14 +248,14 @@ export default function FormularioRegistro() {
               disabled={isLoading}
               className="w-full bg-gradient-gold hover:opacity-90 text-navy-dark font-heading font-bold text-lg py-5 px-6 rounded-xl shadow-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center glow-gold-intense relative overflow-hidden"
             >
-              <span className="relative z-10">
+              <span className="relative z-10 flex items-center justify-center gap-3">
                 {isLoading ? (
                   <>
-                    <div className="spinner mr-3 border-navy-dark"></div>
-                    Registrando...
+                    <div className="spinner border-navy-dark"></div>
+                    <span>Registrando...</span>
                   </>
                 ) : (
-                  'Completar Registro'
+                  <span>Completar Registro</span>
                 )}
               </span>
               {!isLoading && <div className="absolute inset-0 shimmer-effect"></div>}

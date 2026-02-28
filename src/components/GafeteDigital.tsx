@@ -16,23 +16,43 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
 
     try {
       const shareData = {
-        title: 'Mi Gafete - The Victory Church',
-        text: `¡Ya estoy registrado en el evento de The Victory Church! Mira mi gafete digital.`,
+        title: 'Mi Credencial - The Victory 70-12 Miami',
+        text: `¡Ya estoy aqui en la celebracion de 7º aniversario de The Victory 70-12 Miami! Mira mi credencial digital.`,
         url: window.location.href,
       };
 
-      // Intentar capturar el gafete como imagen
+      // Intentar capturar la credencial como imagen
       if (gafeteRef.current && navigator.canShare) {
         try {
-          const dataUrl = await toPng(gafeteRef.current, {
+          // Guardar estilos originales
+          const element = gafeteRef.current;
+          const originalWidth = element.style.width;
+          const originalHeight = element.style.height;
+          const originalMaxWidth = element.style.maxWidth;
+
+          // Aplicar tamaño fijo para captura
+          element.style.width = '600px';
+          element.style.height = '800px';
+          element.style.maxWidth = 'none';
+
+          // Capturar imagen
+          const dataUrl = await toPng(element, {
             cacheBust: true,
             quality: 0.95,
             backgroundColor: '#1a2570',
+            width: 600,
+            height: 800,
+            pixelRatio: 2,
           });
+
+          // Restaurar estilos originales
+          element.style.width = originalWidth;
+          element.style.height = originalHeight;
+          element.style.maxWidth = originalMaxWidth;
 
           // Convertir data URL a blob
           const blob = await (await fetch(dataUrl)).blob();
-          const file = new File([blob], 'gafete.png', { type: 'image/png' });
+          const file = new File([blob], 'credencial.png', { type: 'image/png' });
 
           // Verificar si se puede compartir archivos
           if (navigator.canShare({ files: [file] })) {
@@ -85,17 +105,15 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
           <h1 className="text-3xl md:text-4xl font-display font-bold text-gold-gradient mb-2">
             ¡Registro Exitoso!
           </h1>
-          <p className="text-white/80 font-body">Tu gafete digital está listo</p>
+          <p className="text-white/80 font-body">Tu credencial digital está lista</p>
         </div>
 
-        {/* Gafete Digital */}
+        {/* Credencial Digital */}
         <div
           ref={gafeteRef}
-          className="bg-gradient-navy rounded-3xl p-10 md:p-12 shadow-2xl relative overflow-hidden animate-fadeInUp glow-gold-intense particles-bg"
+          className="bg-gradient-navy rounded-3xl p-8 md:p-10 lg:p-12 shadow-2xl relative overflow-hidden animate-fadeInUp glow-gold-intense particles-bg w-full max-w-xl aspect-[3/4]"
           style={{
             animationDelay: '0.2s',
-            minWidth: '600px',
-            minHeight: '800px',
             boxShadow: '0 0 0 4px #D4AF37, 0 0 0 6px #F4E0A6, 0 0 0 8px #C9A961, 0 0 40px rgba(212, 175, 55, 0.5), 0 20px 60px rgba(0, 0, 0, 0.8)'
           }}
         >
@@ -103,7 +121,7 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
           <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
             <img
               src="/icons/icon-512.png"
-              alt="The Victory Church"
+              alt="The Victory 70-12 Miami"
               className="w-80 h-80 object-contain"
             />
           </div>
@@ -114,11 +132,11 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
           </div>
 
           {/* Contenido del gafete */}
-          <div className="relative z-10 text-center space-y-8">
+          <div className="relative z-10 text-center space-y-4 md:space-y-6">
             {/* Logo/Nombre de la iglesia */}
-            <div className="mb-4">
-              <h2 className="font-display text-2xl md:text-3xl text-gold-gradient font-black tracking-wider">
-                The Victory Church
+            <div className="mb-2 md:mb-4">
+              <h2 className="font-display text-xl md:text-2xl lg:text-3xl text-gold-gradient font-black tracking-wider">
+                The Victory 70-12 Miami
               </h2>
               <div className="flex items-center justify-center gap-3 mt-3">
                 <div className="h-px w-16 bg-gradient-to-r from-transparent to-gold-main"></div>
@@ -127,11 +145,11 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
               </div>
             </div>
 
-            {/* Foto circular */}
+            {/* Foto cuadrada con bordes redondeados */}
             {asistente.foto_url && (
-              <div className="flex justify-center my-6">
+              <div className="flex justify-center my-4 md:my-6">
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-full animate-glow-pulse"
+                  <div className="absolute inset-0 rounded-3xl animate-glow-pulse"
                     style={{
                       boxShadow: '0 0 30px rgba(212, 175, 55, 0.6), 0 0 60px rgba(212, 175, 55, 0.4)'
                     }}
@@ -139,42 +157,38 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
                   <img
                     src={asistente.foto_url}
                     alt={asistente.nombre}
-                    className="relative w-60 h-60 rounded-full object-cover shadow-2xl"
-                    style={{
-                      border: '6px solid',
-                      borderImage: 'linear-gradient(135deg, #C9A961, #F4E0A6, #D4AF37, #F4E0A6, #C9A961) 1'
-                    }}
+                    className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-3xl object-cover shadow-2xl border-2 border-gold-main"
                   />
                 </div>
               </div>
             )}
 
             {/* Nombre del asistente */}
-            <div className="py-2">
-              <h3 className="text-4xl md:text-5xl font-heading font-black text-white mb-2 tracking-tight">
+            <div className="py-1 md:py-2">
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-heading font-black text-white mb-2 tracking-tight">
                 {asistente.nombre}
               </h3>
             </div>
 
             {/* Mensaje de bienvenida */}
-            <div className="py-4">
-              <p className="text-3xl md:text-4xl font-display text-gold-gradient font-black italic">
+            <div className="py-2 md:py-4">
+              <p className="text-2xl md:text-3xl lg:text-4xl font-display text-gold-gradient font-black italic">
                 ¡Bienvenido a Casa!
               </p>
             </div>
 
             {/* Fecha del evento */}
-            <div className="pt-6 mt-4 border-t border-gold-main/20">
-              <p className="text-base font-heading text-gold-light font-semibold">Celebración 7º Aniversario</p>
-              <p className="text-sm text-white/70 font-body mt-1">28 de Febrero, 2026 - 6:30 PM</p>
+            <div className="pt-4 md:pt-6 mt-2 md:mt-4 border-t border-gold-main/20">
+              <p className="text-sm md:text-base font-heading text-gold-light font-semibold">Celebración 7º Aniversario</p>
+              <p className="text-xs md:text-sm text-white/70 font-body mt-1">28 de Febrero, 2026 - 6:30 PM</p>
             </div>
           </div>
 
           {/* Patrón decorativo en las esquinas */}
-          <div className="absolute top-0 left-0 w-20 h-20 border-t-4 border-l-4 border-gold-light/40 rounded-tl-3xl"></div>
-          <div className="absolute top-0 right-0 w-20 h-20 border-t-4 border-r-4 border-gold-light/40 rounded-tr-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-20 h-20 border-b-4 border-l-4 border-gold-light/40 rounded-bl-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-20 h-20 border-b-4 border-r-4 border-gold-light/40 rounded-br-3xl"></div>
+          <div className="absolute top-0 left-0 w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 border-t-2 border-l-2 md:border-t-3 md:border-l-3 lg:border-t-4 lg:border-l-4 border-gold-light/40 rounded-tl-3xl"></div>
+          <div className="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 border-t-2 border-r-2 md:border-t-3 md:border-r-3 lg:border-t-4 lg:border-r-4 border-gold-light/40 rounded-tr-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 border-b-2 border-l-2 md:border-b-3 md:border-l-3 lg:border-b-4 lg:border-l-4 border-gold-light/40 rounded-bl-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 border-b-2 border-r-2 md:border-b-3 md:border-r-3 lg:border-b-4 lg:border-r-4 border-gold-light/40 rounded-br-3xl"></div>
         </div>
 
         {/* Botones de acción */}
@@ -185,15 +199,15 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
             disabled={isSharing}
             className="w-full bg-gradient-gold hover:opacity-90 text-navy-dark font-heading font-bold text-lg py-5 px-6 rounded-xl shadow-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center glow-gold-intense relative overflow-hidden"
           >
-            <span className="relative z-10">
+            <span className="relative z-10 flex items-center justify-center gap-2">
               {isSharing ? (
                 <>
-                  <div className="spinner mr-3 border-navy-dark"></div>
-                  Compartiendo...
+                  <div className="spinner border-navy-dark"></div>
+                  <span>Compartiendo...</span>
                 </>
               ) : (
                 <>
-                  <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -201,7 +215,7 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
                       d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
                     />
                   </svg>
-                  Compartir mi Gafete
+                  <span>Compartir mi Credencial</span>
                 </>
               )}
             </span>

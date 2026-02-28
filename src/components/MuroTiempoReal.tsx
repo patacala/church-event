@@ -223,11 +223,11 @@ export default function MuroTiempoReal({ initialAsistentes, initialCount }: Muro
           Actualizado en tiempo real
         </p>
         <p className="text-white/40 font-body text-xs">
-          Haz clic en cualquier gafete para verlo en grande
+          Haz clic en cualquier credencial para verla en grande
         </p>
       </footer>
 
-      {/* Modal para ver gafete grande */}
+      {/* Modal para ver credencial grande */}
       <GafeteModal
         asistente={selectedAsistente}
         isOpen={selectedAsistente !== null}
