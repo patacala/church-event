@@ -71,6 +71,7 @@ export default function GafeteModal({ asistente, isOpen, onClose }: GafeteModalP
               src="/icons/icon-512.png"
               alt="The Victory 70-12 Miami"
               className="w-96 h-96 object-contain"
+              style={{ mixBlendMode: 'multiply' }}
             />
           </div>
 
@@ -106,6 +107,7 @@ export default function GafeteModal({ asistente, isOpen, onClose }: GafeteModalP
                     src={asistente.foto_url}
                     alt={asistente.nombre}
                     className="relative w-80 h-80 md:w-96 md:h-96 rounded-3xl object-cover shadow-2xl border-2 border-gold-main"
+                    crossOrigin="anonymous"
                   />
                 </div>
               </div>
@@ -132,11 +134,6 @@ export default function GafeteModal({ asistente, isOpen, onClose }: GafeteModalP
             </div>
           </div>
 
-          {/* Patrón decorativo en las esquinas */}
-          <div className="absolute top-0 left-0 w-24 h-24 border-t-4 border-l-4 border-gold-light/40 rounded-tl-3xl"></div>
-          <div className="absolute top-0 right-0 w-24 h-24 border-t-4 border-r-4 border-gold-light/40 rounded-tr-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 border-b-4 border-l-4 border-gold-light/40 rounded-bl-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-24 h-24 border-b-4 border-r-4 border-gold-light/40 rounded-br-3xl"></div>
         </div>
 
         {/* Instrucción para cerrar */}

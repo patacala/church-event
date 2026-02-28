@@ -10,7 +10,7 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
   const [isSharing, setIsSharing] = useState(false);
   const gafeteRef = useRef<HTMLDivElement>(null);
 
-  // Compartir gafete usando Web Share API
+  // Compartir credencial usando Web Share API
   const handleShare = async () => {
     setIsSharing(true);
 
@@ -24,8 +24,21 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
       // Intentar capturar la credencial como imagen
       if (gafeteRef.current && navigator.canShare) {
         try {
-          // Guardar estilos originales
           const element = gafeteRef.current;
+
+          // Esperar a que todas las imágenes se carguen
+          const images = element.getElementsByTagName('img');
+          await Promise.all(
+            Array.from(images).map((img) => {
+              if (img.complete) return Promise.resolve();
+              return new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+              });
+            })
+          );
+
+          // Guardar estilos originales
           const originalWidth = element.style.width;
           const originalHeight = element.style.height;
           const originalMaxWidth = element.style.maxWidth;
@@ -35,14 +48,19 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
           element.style.height = '800px';
           element.style.maxWidth = 'none';
 
-          // Capturar imagen
+          // Pequeña pausa para asegurar renderizado
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          // Capturar imagen con configuración mejorada
           const dataUrl = await toPng(element, {
             cacheBust: true,
-            quality: 0.95,
+            quality: 1.0,
             backgroundColor: '#1a2570',
             width: 600,
             height: 800,
             pixelRatio: 2,
+            skipFonts: false,
+            preferredFontFormat: 'woff2',
           });
 
           // Restaurar estilos originales
@@ -123,6 +141,8 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
               src="/icons/icon-512.png"
               alt="The Victory 70-12 Miami"
               className="w-80 h-80 object-contain"
+              style={{ mixBlendMode: 'multiply' }}
+              crossOrigin="anonymous"
             />
           </div>
 
@@ -158,6 +178,7 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
                     src={asistente.foto_url}
                     alt={asistente.nombre}
                     className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-3xl object-cover shadow-2xl border-2 border-gold-main"
+                    crossOrigin="anonymous"
                   />
                 </div>
               </div>
@@ -183,12 +204,6 @@ export default function GafeteDigital({ asistente }: GafeteDigitalProps) {
               <p className="text-xs md:text-sm text-white/70 font-body mt-1">28 de Febrero, 2026 - 6:30 PM</p>
             </div>
           </div>
-
-          {/* Patrón decorativo en las esquinas */}
-          <div className="absolute top-0 left-0 w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 border-t-2 border-l-2 md:border-t-3 md:border-l-3 lg:border-t-4 lg:border-l-4 border-gold-light/40 rounded-tl-3xl"></div>
-          <div className="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 border-t-2 border-r-2 md:border-t-3 md:border-r-3 lg:border-t-4 lg:border-r-4 border-gold-light/40 rounded-tr-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 border-b-2 border-l-2 md:border-b-3 md:border-l-3 lg:border-b-4 lg:border-l-4 border-gold-light/40 rounded-bl-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 border-b-2 border-r-2 md:border-b-3 md:border-r-3 lg:border-b-4 lg:border-r-4 border-gold-light/40 rounded-br-3xl"></div>
         </div>
 
         {/* Botones de acción */}
