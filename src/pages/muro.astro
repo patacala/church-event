@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MuroTiempoReal from '../components/MuroTiempoReal';
+import { getAsistentes, getAsistentesCount } from '../lib/supabase';
+
+// Obtener asistentes iniciales del servidor (últimos 100)
+const initialAsistentes = await getAsistentes(100);
+const initialCount = await getAsistentesCount();
+---
+
+<Layout
+  title="Muro de Asistentes - The Victory Church"
+  description="Muro en tiempo real de asistentes registrados al evento de The Victory Church"
+>
+  <main>
+    <MuroTiempoReal
+      initialAsistentes={initialAsistentes}
+      initialCount={initialCount}
+      client:load
+    />
+  </main>
+</Layout>
+
+<style>
+  /* Ocultar cursor en pantalla completa (para TV) */
+  body {
+    cursor: none;
+  }
+
+  /* Prevenir selección de texto en el muro */
+  main {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+</style>

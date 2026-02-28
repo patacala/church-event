@@ -1,0 +1,22 @@
+⚠️  IMPORTANTE: CREAR ICONOS PNG
+
+Necesitas crear dos archivos PNG en esta carpeta antes de usar la app:
+
+1. icon-192.png (192x192 píxeles)
+2. icon-512.png (512x512 píxeles)
+
+OPCIÓN RÁPIDA:
+Usa este generador online: https://www.pwabuilder.com/imageGenerator
+- Sube tu logo
+- Descarga los iconos generados
+- Colócalos en esta carpeta
+
+ESPECIFICACIONES:
+- Fondo: Negro (#000000)
+- Logo: Dorado (#D4AF37)
+- Formato: PNG
+- Tamaños: 192x192 y 512x512 píxeles
+
+Sin estos iconos, la PWA no funcionará correctamente en móviles.
+
+Lee README.md en esta carpeta para más detalles.
